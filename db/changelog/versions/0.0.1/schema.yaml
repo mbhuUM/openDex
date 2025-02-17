@@ -1,0 +1,130 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.0-1
+      author: initial_setup
+      comment: Create core tables for Pokedex
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: gen_random_uuid()
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password_hash
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - createTable:
+            tableName: pokemon_cards
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: gen_random_uuid()
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: set_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: card_number
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rarity
+                  type: varchar(50)
+              - column:
+                  name: image_url
+                  type: text
+              - column:
+                  name: card_type
+                  type: varchar(50)
+              - column:
+                  name: hp
+                  type: integer
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - createTable:
+            tableName: user_collections
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: gen_random_uuid()
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_collections_user
+                    references: users(id)
+                    deleteCascade: true
+              - column:
+                  name: card_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_collections_card
+                    references: pokemon_cards(id)
+              - column:
+                  name: quantity
+                  type: integer
+                  defaultValue: 1
+                  constraints:
+                    nullable: false
+              - column:
+                  name: condition
+                  type: varchar(50)
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  defaultValueComputed: CURRENT_TIMESTAMP

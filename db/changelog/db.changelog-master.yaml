@@ -1,0 +1,11 @@
+# db/changelog/db.changelog-master.yaml
+databaseChangeLog:
+  - include:
+      file: versions/0.0.1/schema.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: versions/0.0.1/indexes.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: versions/0.0.1/initial_data.yaml
+      relativeToChangelogFile: true

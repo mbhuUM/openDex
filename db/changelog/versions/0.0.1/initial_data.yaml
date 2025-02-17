@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.0-3
+      author: initial_data
+      comment: Add initial card types and rarities
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO pokemon_cards (name, set_name, card_number, rarity, card_type)
+              VALUES 
+                ('Charizard', 'Base Set', '4/102', 'Rare Holo', 'Fire'),
+                ('Pikachu', 'Base Set', '58/102', 'Common', 'Electric')
+              ON CONFLICT DO NOTHING;
