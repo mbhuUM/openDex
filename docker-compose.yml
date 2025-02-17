@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -13,7 +11,7 @@ services:
       - postgres_data:/data/postgres
 
     ports:
-      - "5432:5432"
+      - "5050:5432"
     networks:
       - pokedex_network
     healthcheck:
@@ -31,7 +29,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: your_email@example.com
       PGADMIN_DEFAULT_PASSWORD: your_pgadmin_password
     ports:
-      - "5050:80"
+      - "5432:80"
     networks:
       - pokedex_network
     depends_on:
