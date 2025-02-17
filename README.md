@@ -7,3 +7,6 @@ React native front end
 Go Backend
 
 Postgres DB
+
+
+Todos:

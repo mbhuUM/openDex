@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: pokedex_db
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pokedex
+      PGDATA: /data/postgres
+    volumes:
+      - postgres_data:/data/postgres
+
+    ports:
+      - "5432:5432"
+    networks:
+      - pokedex_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pokedex_user -d pokedex"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Optionally add pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pokedex_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: your_email@example.com
+      PGADMIN_DEFAULT_PASSWORD: your_pgadmin_password
+    ports:
+      - "5050:80"
+    networks:
+      - pokedex_network
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  pokedex_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
