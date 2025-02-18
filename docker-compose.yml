@@ -1,17 +1,17 @@
 services:
-  postgres:
+  db:
     image: postgres:latest
     container_name: pokedex_db
     environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: password
       POSTGRES_DB: pokedex
+      POSTGRES_USER: pokedex_user
+      POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
     volumes:
-      - postgres_data:/data/postgres
-
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/changelog:/docker-entrypoint-initdb.d
     ports:
-      - "5050:5432"
+      - "5432:5432"
     networks:
       - pokedex_network
     healthcheck:
@@ -21,37 +21,9 @@ services:
       retries: 5
     restart: unless-stopped
 
-  # Optionally add pgAdmin for database management
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: pokedex_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: your_email@example.com
-      PGADMIN_DEFAULT_PASSWORD: your_pgadmin_password
-    ports:
-      - "5432:80"
-    networks:
-      - pokedex_network
-    depends_on:
-      - postgres
-    restart: unless-stopped
-
 networks:
   pokedex_network:
     driver: bridge
 
-liquibase:
-    image: liquibase/liquibase
-    depends_on:
-      - postgres
-    volumes:
-      - ./db/changelog:/liquibase/changelog
-    command: >
-      --changeLogFile=db.changelog-master.yaml
-      --url=jdbc:postgresql://postgres:5432/pokedex
-      --username=pokedex_user
-      --password=your_secure_password
-      update
-      
 volumes:
   postgres_data:
