@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0.0-2
+      author: initial_indexes
+      comment: Create initial indexes for performance
+      changes:
+        - createIndex:
+            indexName: idx_pokemon_cards_name
+            tableName: pokemon_cards
+            columns:
+              - column:
+                  name: name
+        - createIndex:
+            indexName: idx_pokemon_cards_set
+            tableName: pokemon_cards
+            columns:
+              - column:
+                  name: set_name
+              - column:
+                  name: card_number
+        - createIndex:
+            indexName: idx_user_collections_user_card
+            tableName: user_collections
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: card_id
+            unique: true

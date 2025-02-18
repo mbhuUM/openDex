@@ -1,10 +1,12 @@
 package card
 
+
+//              INSERT INTO pokemon_cards (name, set_name, card_number, rarity, card_type)
 type card struct{
-	ID          string    `json:"id"`
     Name        string    `json:"name"`
     Set         string    `json:"set"`
-    Number      string    `json:"number"`
-    ImageURL    string    `json:"image_url"`
-    owner       string    // private field
+	CardNumber 	string 	  `json:"card_number"`
+    Rarity      string    `json:"rarity"`
+	Type 		string    `json:"card_type"`
+	
 }
