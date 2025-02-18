@@ -13,5 +13,5 @@ Go, Liquibase, Postgres, docker or podman
 
 How to set up DB:
 ---------------------------------
-    docker compose -f docker-compose.yml up\
+    docker compose -f docker-compose.yml up
     liquibase update
