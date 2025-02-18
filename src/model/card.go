@@ -1,7 +1,6 @@
-package card
+package Card
 
 
-//              INSERT INTO pokemon_cards (name, set_name, card_number, rarity, card_type)
 type card struct{
     Name        string    `json:"name"`
     Set         string    `json:"set"`
