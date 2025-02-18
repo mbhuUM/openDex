@@ -1,19 +1,17 @@
 # openDex
 pokedex for pokemon cards
 
-
 React native front end
 
 Go Backend
 
 Postgres DB
 
-
-Todos:
-
 What is needed for this project:
-    Go, Liquibase, Postgres, docker or podman
------------------------
+--------------------------------
+Go, Liquibase, Postgres, docker or podman
+
 How to set up DB:
-    docker compose -f docker-compose.yml up
+---------------------------------
+    docker compose -f docker-compose.yml up\
     liquibase update
